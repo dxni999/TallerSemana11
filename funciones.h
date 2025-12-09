@@ -11,7 +11,6 @@ typedef struct {
 
 // Función para leer cadenas con validación
 void leerCadena(char *cadena, int n);
-
 void registrarLibro(Libro *libros, int *contador);
 void mostrarLibros(Libro *libros, int contador);
 void buscarLibro(Libro *libros, int contador);
