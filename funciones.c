@@ -41,7 +41,7 @@ void registrarLibro(Libro *libros, int *contador) {
         return;
     }
     
-    Libro nuevoLibro;
+    Libro nuevoLibro;// Crear una variable temporal para el nuevo libro
     
     printf("\n--- REGISTRAR NUEVO LIBRO ---\n");
     
@@ -66,7 +66,7 @@ void registrarLibro(Libro *libros, int *contador) {
         }
     } while(nuevoLibro.id <= 0 || idExiste(libros, *contador, nuevoLibro.id));
     
-    // Limpiar buffer completamente
+    // Limpiar buffer 
     while(getchar() != '\n');
     
     // Solicitar título con validación
@@ -114,7 +114,7 @@ void registrarLibro(Libro *libros, int *contador) {
                 autorValido = 0;
             }
         }
-    } while(!autorValido);
+    } while(!autorValido); //Bucle para validar autor
     
     // Solicitar año con validación
     do {
@@ -208,7 +208,13 @@ void buscarLibro(Libro *libros, int contador) {
     } else {
         char titulo[100];
         printf("Ingrese titulo del libro: ");
-        leerCadena(titulo, 100);
+        while(getchar() != '\n'); // Limpiar buffer después de scanf
+        fgets(titulo, 100, stdin);
+        
+        // Eliminar salto de línea
+        int len = strlen(titulo) - 1;
+        if(titulo[len] == '\n')
+            titulo[len] = '\0';
         
         // Validar que no esté vacío
         if(strlen(titulo) == 0) {
@@ -216,20 +222,20 @@ void buscarLibro(Libro *libros, int contador) {
             return;
         }
         
-        for(int i = 0; i < contador; i++) { // Comparación de cadenas
+        for(int i = 0; i < contador; i++) {
             if(strcmp(libros[i].titulo, titulo) == 0) {
                 printf("\n--- LIBRO ENCONTRADO ---\n");
                 printf("ID: %d\n", libros[i].id);
                 printf("Titulo: %s\n", libros[i].titulo);
                 printf("Autor: %s\n", libros[i].autor);
-                printf("Año: %d\n", libros[i].anio);
+                printf("Anio: %d\n", libros[i].anio);
                 printf("Estado: %s\n", libros[i].estado);
                 encontrado = 1;
                 break;
             }
         }
     }
-    
+         
     if(!encontrado) {
         printf("\nLibro no encontrado.\n");
     }
